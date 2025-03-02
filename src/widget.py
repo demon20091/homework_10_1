@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Union
 
-from src.masks import get_masks_card_number
+from src.masks import get_masks_card_number, get_mask_account
 
 
 def mask_account_card(type_and_number: Union[str]) -> Union[str]:
@@ -19,7 +19,7 @@ def mask_account_card(type_and_number: Union[str]) -> Union[str]:
     if digit_count > 16:
         return f"{text_result} {get_masks_card_number(digit_result)}"
     else:
-        return f"{text_result} {get_masks_card_number(digit_result)}"
+        return f"{text_result} {get_mask_account(digit_result)}"
 
 
 def get_date(user_date: Union[str]) -> Union[str]:
@@ -32,4 +32,6 @@ def get_date(user_date: Union[str]) -> Union[str]:
 
 
 print(mask_account_card("Visa Platinum 1234567891234567"))
+print(mask_account_card("Счет 1234565789789456132465"))
 print(get_date("2024-03-11T02:26:18.671407"))  # 11.03.2024
+
