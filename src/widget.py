@@ -17,9 +17,9 @@ def mask_account_card(type_and_number: Union[str]) -> Union[str]:
             digit_result += el
             digit_count += 1
     if digit_count > 16:
-        return f"{text_result} {get_masks_card_number(digit_result)}"
-    else:
         return f"{text_result} {get_mask_account(digit_result)}"
+    else:
+        return f"{text_result} {get_masks_card_number(digit_result)}"
 
 
 def get_date(user_date: Union[str]) -> Union[str]:
