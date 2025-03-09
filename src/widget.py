@@ -23,7 +23,8 @@ def mask_account_card(type_and_number: Union[str]) -> Union[str]:
 
 
 def get_date(user_date: Union[str]) -> Union[str]:
-    '''Функция, которая принимает на вход строку с датой в формате "2024-03-11T02:26:18.671407" и возвращает строку с датой в формате "ДД.ММ.ГГГГ" ("11.03.2024").'''
+    '''Функция, которая принимает на вход строку с датой в формате "2024-03-11T02:26:18.671407"
+    и возвращает строку с датой в формате "ДД.ММ.ГГГГ" ("11.03.2024").'''
 
     date_format = datetime.strptime(user_date, "%Y-%m-%dT%H:%M:%S.%f")
     new_date = date_format.strftime("%d.%m.%Y")
@@ -34,4 +35,3 @@ def get_date(user_date: Union[str]) -> Union[str]:
 print(mask_account_card("VisaPlatinum 1234567891234567"))
 print(mask_account_card("Счет 34565789789456132465"))
 print(get_date("2024-03-11T02:26:18.671407"))  # 11.03.2024
-

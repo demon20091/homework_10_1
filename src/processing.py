@@ -8,8 +8,7 @@ def filter_by_state(dicts_to_filter: list, state: str = "EXECUTED") -> list[Any]
         try:
             if dictionary["state"] == state:
                 filtered_list.append(dictionary)
-                # print(dictionary)
-                # input()
+
         except KeyError:
             continue
 
