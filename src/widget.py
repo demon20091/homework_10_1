@@ -31,7 +31,7 @@ def get_date(user_date: Union[str]) -> Union[str]:
     return new_date
 
 
-print(mask_account_card("Visa Platinum 1234567891234567"))
-print(mask_account_card("Счет 1234565789789456132465"))
+print(mask_account_card("VisaPlatinum 1234567891234567"))
+print(mask_account_card("Счет 34565789789456132465"))
 print(get_date("2024-03-11T02:26:18.671407"))  # 11.03.2024
 
