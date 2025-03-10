@@ -10,7 +10,7 @@ def mask_account_card(type_and_number: Union[str]) -> Union[str]:
     parts = type_and_number.split()
     only_type = ' '.join(parts[:-1])
     only_number = parts[-1]
-    if len(only_number) > 16: # ещё лучше - if only_type.lower().startswith('счет')
+    if len(only_number) > 16:
         return f"{only_type} {get_mask_account(only_number)}"
     else:
         return f"{only_type} {get_masks_card_number(only_number)}"
