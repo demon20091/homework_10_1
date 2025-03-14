@@ -1,31 +1,52 @@
-from datetime import datetime
-from typing import Union
+def mask_account_card(card_details: str) -> str:
+    """Принимает строку с типом карты/счета и номером, возвращает замаскированный номер."""
+    if not card_details:
+        raise ValueError("Введены пустые данные")
 
-from src.masks import get_masks_card_number, get_mask_account
+    parts = card_details.split()
+    if len(parts) < 2:
+        raise ValueError("Введены некорректные данные")
 
+    last_part = parts[-1]
+    card_or_account_type = " ".join(parts[:-1])
 
-def mask_account_card(type_and_number: Union[str]) -> Union[str]:
-    '''функция, которая умеет обрабатывать информацию как о картах, так и о счетах.'''
+    # Проверяем, состоит ли номер из цифр
+    if not last_part.isdigit():
+        raise ValueError("Номер карты или счета должен состоять только из цифр")
 
-    parts = type_and_number.split()
-    only_type = ' '.join(parts[:-1])
-    only_number = parts[-1]
-    if len(only_number) > 16:
-        return f"{only_type} {get_mask_account(only_number)}"
+    if card_or_account_type.lower().startswith("счет"):
+        if len(last_part) == 20:  # Длина номера счета
+            masked_number = f"{last_part[:4]} {last_part[4:6]}** **** {last_part[-4:]}"
+        else:
+            raise ValueError("Введен некорректный номер счета")
     else:
-        return f"{only_type} {get_masks_card_number(only_number)}"
+        if len(last_part) in {16, 19}:  # Длина номера карты может быть 16 или 19
+            masked_number = f"{last_part[:4]} {last_part[4:6]}** **** {last_part[-4:]}"
+        else:
+            raise ValueError("Введен некорректный номер карты")
+
+    return f"{card_or_account_type} {masked_number}"
 
 
-def get_date(user_date: Union[str]) -> Union[str]:
-    '''Функция, которая принимает на вход строку с датой в формате "2024-03-11T02:26:18.671407"
-    и возвращает строку с датой в формате "ДД.ММ.ГГГГ" ("11.03.2024").'''
-
-    date_format = datetime.strptime(user_date, "%Y-%m-%dT%H:%M:%S.%f")
-    new_date = date_format.strftime("%d.%m.%Y")
-
-    return new_date
+print(mask_account_card("Visa Platinum 7000792289606361"))
 
 
-print(mask_account_card("Visa Platinum 1234567891234567"))
-print(mask_account_card("Счет 34565789789456132465"))
-print(get_date("2024-03-11T02:26:18.671407"))  # 11.03.2024
+def get_data(date: str) -> str:
+    """Заменяем знак "-" в строке с датой на "." и форматируем дату."""
+    if not date:
+        raise ValueError("Date string is empty")
+
+    if "T" not in date:
+        raise ValueError("Incomplete date format")
+
+    date_part = date.split("T")[0]  # берем только часть до T
+    parts = date_part.split("-")
+
+    if len(parts) != 3 or not all(part.isdigit() for part in parts):
+        raise ValueError("Invalid date format")
+
+    formatted_date = f"{parts[2]}.{parts[1]}.{parts[0]}"
+    return formatted_date
+
+
+print(get_data("2024-03-11T02:26:18.671407"))
