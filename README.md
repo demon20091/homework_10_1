@@ -1,4 +1,4 @@
-# Домашняя работа 10.2 ""
+# Домашняя работа 10.3 ""
 
 ## Цель проекта
 - Ознакомиться с технологией ***GitHub***:
@@ -24,6 +24,7 @@ pip install -r requirements.txt
 В домашнем задании добавлен модуль ***processing***, в котором реализованы две функции:
 - ***filter_by_state()***
 - ***sort_by_date()***
+
 
 1. Функция ***filter_by_state()*** принимает список словарей и опционально значение для ключа 
 'state' (по умолчанию 'EXECUTED').
@@ -93,6 +94,7 @@ pip install pytest
 - *test_widget*
 - *test_masks*
 - *test_processing*
+- *test_generators*
 ## Лицензия
 
 [SkyPro IT School](#)
