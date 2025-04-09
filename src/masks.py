@@ -25,4 +25,3 @@ def get_mask_account(account_number: int) -> str:
     # Создаем маску: оставляем первые 4 символа, 2 маскированные и 4 последние
     masked_account_number = f"{account_number_str[:4]} {account_number_str[4:6]}** **** {account_number_str[-4:]}"
     return masked_account_number
-

@@ -2,6 +2,7 @@ import pytest
 
 from src.masks import get_mask_account, get_mask_card_number
 
+
 # Юнит-тесты для mask_card_number
 @pytest.fixture
 def card_numbers():
@@ -10,6 +11,7 @@ def card_numbers():
         0,  # Input value for the second test (for empty check)
         700079228960636100,  # Input value for the third test
     ]
+
 
 # тесты для mask_card_number на ошибки
 @pytest.fixture
@@ -30,6 +32,7 @@ def test_get_mask_card_number(card_numbers, expected_results):
             result = get_mask_card_number(card_number)
             assert result == expected
 
+
 # Юнит-тесты для mask_account
 @pytest.fixture
 def account_numbers():
@@ -38,6 +41,7 @@ def account_numbers():
         0,  # Input value for the second test (for empty check)
         700079228960636100,  # Input value for the third test
     ]
+
 
 # тесты для mask_account на ошибки
 @pytest.fixture
