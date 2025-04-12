@@ -22,6 +22,7 @@ def test_get_mask_card_number(card_number, masked):
 def card_number_empty():
     return ""
 
+
 def test_get_mask_card_number_empty(card_number_empty):
     """Тест на отсутствие номера номера карты."""
     with pytest.raises(ValueError) as e:
@@ -64,6 +65,7 @@ def test_get_mask_account(account_number, masked):
 @pytest.fixture
 def mask_account_empty():
     return ""
+
 
 def test_get_mask_account_empty(mask_account_empty):
     """Тест на отсутствие номера номера карты."""

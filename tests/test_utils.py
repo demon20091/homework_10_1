@@ -44,9 +44,11 @@ def some_transaction_rub():
         "to": "Счет 11776614605963066702"
     }
 
+
 def test_transaction_amount_rub(some_transaction_rub):
     """ Тест на получение суммы в рублях, если транзакция в рублях. """
     assert transaction_amount(some_transaction_rub) == "\nТранзакция ID: 939719570, сумма: 9824.07 RUB"
+
 
 @pytest.fixture
 def some_transaction_usd():
@@ -65,6 +67,7 @@ def some_transaction_usd():
         "from": "Счет 75106830613657916952",
         "to": "Счет 11776614605963066702"
     }
+
 
 @patch("src.utils.convert_curr")
 def test_transaction_amount_non_rub_success(mock_convert_curr, some_transaction_usd):
