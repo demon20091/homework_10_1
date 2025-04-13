@@ -3,61 +3,91 @@ import pytest
 from src.masks import get_mask_account, get_mask_card_number
 
 
-# Юнит-тесты для mask_card_number
+@pytest.mark.parametrize(
+    "card_number, masked",
+    [
+        ("1596837868705199", "1596 83** **** 5199"),
+        ("7158300734726758", "7158 30** **** 6758"),
+        ("6831982476737658", "6831 98** **** 7658"),
+        ("8990922113665229", "8990 92** **** 5229"),
+        ("5999414228426353", "5999 41** **** 6353"),
+    ],
+)
+def test_get_mask_card_number(card_number, masked):
+    """Тест на правильность маскирования номера карты."""
+    assert get_mask_card_number(card_number) == masked
+
+
 @pytest.fixture
-def card_numbers():
-    return [
-        7000792289606361,  # Input value for the first test
-        0,  # Input value for the second test (for empty check)
-        700079228960636100,  # Input value for the third test
-    ]
+def card_number_empty():
+    return ""
 
 
-# тесты для mask_card_number на ошибки
+def test_get_mask_card_number_empty(card_number_empty):
+    """Тест на отсутствие номера номера карты."""
+    with pytest.raises(ValueError) as e:
+        get_mask_card_number(card_number_empty)
+    assert str(e.value) == "Нулевая длина номера карты"
+    print(str(e.value))
+
+
+@pytest.mark.parametrize(
+    "card_number_nonst",
+    [
+        ("-1502398039483094853496868705199"),
+        ("-70734726758"),
+        ("688"),
+        ("89909"),
+        ("599948426353"),
+    ],
+)
+def test_get_mask_card_number_nonstandard(card_number_nonst):
+    """Тест на корректность входных данных, длины номера карты."""
+    with pytest.raises(ValueError) as e:
+        get_mask_card_number(card_number_nonst)
+    assert str(e.value) == "Нестандартный номер карты, должно быть 16-значное число"
+    print(str(e.value))
+
+
+@pytest.mark.parametrize(
+    "account_number, masked",
+    [
+        ("64686473678894779589", "**9589"),
+        ("35383033474447895560", "**5560"),
+        ("73654108430135874305", "**4305"),
+    ],
+)
+def test_get_mask_account(account_number, masked):
+    """Тест на правильность маскирования номера счета."""
+    assert get_mask_account(account_number) == masked
+
+
 @pytest.fixture
-def expected_results():
-    return [
-        "7000 79** **** 6361",  # Expected result for the first test
-        ValueError,  # Expected exception for the second test
-        ValueError,  # Expected exception for the third test
-    ]
+def mask_account_empty():
+    return ""
 
 
-def test_get_mask_card_number(card_numbers, expected_results):
-    for card_number, expected in zip(card_numbers, expected_results):
-        if expected is ValueError:
-            with pytest.raises(ValueError):
-                get_mask_card_number(card_number)
-        else:
-            result = get_mask_card_number(card_number)
-            assert result == expected
+def test_get_mask_account_empty(mask_account_empty):
+    """Тест на отсутствие номера номера карты."""
+    with pytest.raises(ValueError) as e:
+        get_mask_account(mask_account_empty)
+    assert str(e.value) == "Нулевая длина номера счета"
+    print(str(e.value))
 
 
-# Юнит-тесты для mask_account
-@pytest.fixture
-def account_numbers():
-    return [
-        73654108430135874305,  # Input value for the first test
-        0,  # Input value for the second test (for empty check)
-        700079228960636100,  # Input value for the third test
-    ]
-
-
-# тесты для mask_account на ошибки
-@pytest.fixture
-def expected_results_account():
-    return [
-        "7365 41** **** 4305",  # Expected result for the first test (updated)
-        ValueError,  # Expected exception for the second test
-        ValueError,  # Expected exception for the third test
-    ]
-
-
-def test_get_mask_account_number(account_numbers, expected_results_account):
-    for account_number, expected in zip(account_numbers, expected_results_account):
-        if expected is ValueError:
-            with pytest.raises(ValueError):
-                get_mask_account(account_number)
-        else:
-            result = get_mask_account(account_number)
-            assert result == expected
+@pytest.mark.parametrize(
+    "account_number_nonst",
+    [
+        ("-1502398039483094853496868705199"),
+        ("-70734726758"),
+        ("688"),
+        ("89909"),
+        ("599948426353"),
+    ],
+)
+def test_get_mask_account_nonstandard(account_number_nonst):
+    """Тест на корректность входных данных, длины номера счета."""
+    with pytest.raises(ValueError) as e:
+        get_mask_account(account_number_nonst)
+    assert str(e.value) == "Нестандартный номер счета, должно быть 20-значное число"
+    print(str(e.value))
