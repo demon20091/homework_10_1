@@ -1,4 +1,4 @@
-# Домашняя работа 10.3 ""
+# Домашняя работа 13.2 ""
 
 ## Цель проекта
 - Ознакомиться с технологией ***GitHub***:
@@ -94,7 +94,10 @@ pip install pytest
 - *test_widget*
 - *test_masks*
 - *test_processing*
+- *test_main*
 - *test_generators*
+- *test_decorators*
+- *test_utils*
 ## Лицензия
 
 [SkyPro IT School](#)
